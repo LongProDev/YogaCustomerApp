@@ -1,0 +1,11 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.ComponentModel;
+global using System.Threading.Tasks;
+global using System.Net.Http;
+global using System.Net.Http.Json;
+global using Microsoft.Maui;
+global using Microsoft.Maui.Controls;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
+global using Refit;

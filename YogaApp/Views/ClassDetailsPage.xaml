@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YogaApp.Views.ClassDetailsPage"
+             Title="Class Details">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                             IsRunning="{Binding IsLoading}"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+
+            <!-- Error Message -->
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="Red"
+                   IsVisible="{Binding ErrorMessage, Converter={StaticResource NotNullConverter}}"
+                   Margin="0,0,0,10"/>
+
+            <!-- Class Information -->
+            <Frame BorderColor="LightGray" Padding="15" Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="{Binding ClassDetails.YogaClass.Type}"
+                           FontSize="24"
+                           FontAttributes="Bold"/>
+
+                    <Label Text="{Binding ClassDetails.Instance.Date, StringFormat='{0:dddd, MMMM dd}'}"
+                           FontSize="18"/>
+
+                    <Label Text="{Binding ClassDetails.YogaClass.Time, StringFormat='Time: {0:hh\\:mm}'}"
+                           Margin="0,5"/>
+
+                    <Label Text="{Binding ClassDetails.YogaClass.Duration, StringFormat='Duration: {0} minutes'}"
+                           Margin="0,5"/>
+
+                    <Label Text="{Binding ClassDetails.Instance.Teacher, StringFormat='Instructor: {0}'}"
+                           Margin="0,5"/>
+
+                    <Label Text="{Binding ClassDetails.YogaClass.Price, StringFormat='Price: £{0}'}"
+                           Margin="0,5"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Available Spots -->
+            <Frame BorderColor="LightGray" Padding="15" Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="{Binding ClassDetails.AvailableSpots, StringFormat='Available Spots: {0}'}"
+                           FontSize="18"
+                           TextColor="{Binding ClassDetails.AvailableSpots, Converter={StaticResource SpotsColorConverter}}"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Equipment and Requirements -->
+            <Frame BorderColor="LightGray" Padding="15" Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="Required Equipment"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    <CollectionView ItemsSource="{Binding ClassDetails.Equipment}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Label Text="{Binding}" Margin="10,5"/>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+
+            <!-- Location Details -->
+            <Frame BorderColor="LightGray" Padding="15" Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="Location"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding ClassDetails.LocationDetails}"
+                           Margin="0,5"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Cancellation Policy -->
+            <Frame BorderColor="LightGray" Padding="15" Margin="0,0,0,20">
+                <StackLayout>
+                    <Label Text="Cancellation Policy"
+                           FontSize="18"
+                           FontAttributes="Bold"/>
+                    <Label Text="{Binding ClassDetails.CancellationPolicy}"
+                           Margin="0,5"/>
+                </StackLayout>
+            </Frame>
+
+            <!-- Action Buttons -->
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Book Class"
+                        Command="{Binding BookClassCommand}"
+                        IsEnabled="{Binding ClassDetails.IsBookable}"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource Primary}"/>
+
+                <Button Text="Share"
+                        Command="{Binding ShareClassCommand}"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource Secondary}"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
